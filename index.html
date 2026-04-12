@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title>Linguistics Travel Bible 🇹🇭</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:     #0d1117;
+      --card:   #161b22;
+      --border: #30363d;
+      --text:   #f0f6fc;
+      --muted:  #8b949e;
+      --accent: #e04a2c;
+      --gold:   #f0a500;
+      --green:  #3fb950;
+      --blue:   #79c0ff;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
+      min-height: 100vh;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* ── HEADER ───────────────────────────────────────────── */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 14px;
+    }
+    .hdr-row {
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 8px;
+      margin-bottom: 8px;
+    }
+    .app-name  { font-size: 0.95rem; font-weight: 700; }
+    .app-sub   { font-size: 0.72rem; color: var(--muted); margin-top: 1px; }
+
+    .p-toggle {
+      display: flex; gap: 3px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 9px; padding: 3px;
+      flex-shrink: 0;
+    }
+    .p-btn {
+      padding: 4px 10px; border: none; border-radius: 7px;
+      cursor: pointer; font-size: 0.73rem; font-weight: 700;
+      background: transparent; color: var(--muted);
+      white-space: nowrap; transition: all 0.15s;
+      font-family: 'Noto Sans Thai', -apple-system, sans-serif;
+    }
+    .p-btn.on { background: var(--accent); color: #fff; }
+
+    .search-wrap { position: relative; }
+    .search-ico  {
+      position: absolute; left: 10px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.9rem; pointer-events: none;
+    }
+    input[type="search"] {
+      width: 100%; padding: 9px 12px 9px 34px;
+      background: var(--card);
+      border: 1px solid var(--border); border-radius: 10px;
+      color: var(--text); font-size: 0.95rem;
+      outline: none; -webkit-appearance: none;
+    }
+    input[type="search"]::placeholder { color: var(--muted); }
+    input[type="search"]:focus        { border-color: var(--accent); }
+
+    /* ── TABS ─────────────────────────────────────────────── */
+    #tabs {
+      position: fixed; left: 0; right: 0; z-index: 99;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      display: flex; overflow-x: auto;
+      padding: 0 8px; scrollbar-width: none;
+    }
+    #tabs::-webkit-scrollbar { display: none; }
+    .tab {
+      padding: 10px 12px; border: none; background: transparent;
+      color: var(--muted); font-size: 0.82rem; font-weight: 500;
+      cursor: pointer; white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: all 0.15s; flex-shrink: 0;
+    }
+    .tab.on { color: var(--accent); border-bottom-color: var(--accent); }
+    .badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--border); color: var(--muted);
+      font-size: 0.6rem; border-radius: 9px;
+      padding: 1px 5px; margin-left: 4px; font-weight: 700;
+    }
+    .tab.on .badge { background: rgba(224,74,44,0.15); color: var(--accent); }
+
+    /* ── MAIN ─────────────────────────────────────────────── */
+    main { padding: 14px 12px 80px; max-width: 560px; margin: 0 auto; }
+
+    .cat-hdr {
+      font-size: 0.67rem; text-transform: uppercase; letter-spacing: 1px;
+      color: var(--muted); margin: 16px 0 8px 2px; font-weight: 700;
+    }
+    .cat-hdr:first-child { margin-top: 4px; }
+
+    /* ── PHRASE CARD ──────────────────────────────────────── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 13px; padding: 13px 13px;
+      margin-bottom: 8px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .card.strd { border-left: 3px solid var(--gold); padding-left: 10px; }
+
+    .card-body { flex: 1; min-width: 0; }
+    .c-en {
+      font-size: 0.68rem; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 2px;
+    }
+    .c-th {
+      font-family: 'Noto Sans Thai', sans-serif;
+      font-size: 1.5rem; font-weight: 700;
+      color: var(--text); line-height: 1.4; margin-bottom: 1px;
+    }
+    .c-ph { font-size: 0.83rem; color: var(--blue); font-style: italic; }
+
+    .card-btns { display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
+    .btn {
+      width: 40px; height: 40px; border: none; border-radius: 10px;
+      cursor: pointer; font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.1s, background 0.15s;
+      background: var(--border); color: var(--muted);
+    }
+    .btn:active { transform: scale(0.88); }
+    .btn.cp.ok  { background: var(--green); color: #fff; }
+    .btn.st     { background: transparent; }
+    .btn.st.on  { color: var(--gold); }
+
+    /* ── EMPTY STATE ──────────────────────────────────────── */
+    .empty { text-align: center; padding: 60px 20px; color: var(--muted); }
+    .empty .ico { font-size: 2.4rem; display: block; margin-bottom: 10px; }
+
+    /* ── TOAST ────────────────────────────────────────────── */
+    #toast {
+      position: fixed; bottom: 22px; left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--green); color: #fff;
+      padding: 9px 22px; border-radius: 20px;
+      font-size: 0.88rem; font-weight: 600;
+      z-index: 999; pointer-events: none; white-space: nowrap;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      transition: transform 0.22s ease;
+    }
+    #toast.show { transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body>
+
+<header id="hdr">
+  <div class="hdr-row">
+    <div>
+      <div class="app-name">🇹🇭 Linguistics Travel Bible</div>
+      <div class="app-sub">Thai phrase cheatsheet</div>
+    </div>
+    <div class="p-toggle">
+      <button class="p-btn on" data-p="m" onclick="setP('m')">ครับ krap</button>
+      <button class="p-btn"    data-p="f" onclick="setP('f')">ค่ะ ka</button>
+    </div>
+  </div>
+  <div class="search-wrap">
+    <span class="search-ico">🔍</span>
+    <input type="search" id="q" placeholder="Search phrases…" autocomplete="off" oninput="onQ(this.value)">
+  </div>
+</header>
+
+<div id="tabs"></div>
+<main id="main"></main>
+<div id="toast">Copied!</div>
+
+<script>
+// ── Phrase data ────────────────────────────────────────────────────────────
+// p: true → phrase takes a polite gender particle at the end
+const DATA = {
+  basics: {
+    label: '👋 Basics',
+    phrases: [
+      { en: 'Hello / Goodbye',            th: 'สวัสดี',               ph: 'Sawadee',                    p: true  },
+      { en: 'Thank you',                  th: 'ขอบคุณ',               ph: 'Khob khun',                  p: true  },
+      { en: 'Thank you very much',        th: 'ขอบคุณมาก',            ph: 'Khob khun maak',             p: true  },
+      { en: "You're welcome",             th: 'ยินดี',                ph: 'Yin dee',                    p: true  },
+      { en: 'Sorry / Excuse me',          th: 'ขอโทษ',               ph: 'Kho thot',                   p: true  },
+      { en: 'Yes',                        th: 'ใช่',                  ph: 'Chai',                       p: false },
+      { en: 'No',                         th: 'ไม่',                  ph: 'Mai',                        p: false },
+      { en: 'No worries',                 th: 'ไม่เป็นไร',            ph: 'Mai pen rai',                p: false },
+      { en: "I don't understand",         th: 'ไม่เข้าใจ',            ph: 'Mai khao jai',               p: true  },
+      { en: 'Please speak slowly',        th: 'กรุณาพูดช้าๆ',         ph: 'Ga-ru-na phut cha cha',      p: true  },
+      { en: 'Do you speak English?',      th: 'พูดภาษาอังกฤษได้ไหม', ph: 'Phut pha-sa ang-grit dai mai', p: true },
+      { en: 'Where is the toilet?',       th: 'ห้องน้ำอยู่ที่ไหน',   ph: 'Hong nam yoo tee nai',       p: true  },
+      { en: 'How much?',                  th: 'เท่าไหร่',             ph: 'Tao rai',                    p: true  },
+      { en: 'I like Thailand',            th: 'ชอบประเทศไทย',         ph: 'Chob pra-tet Thai',          p: true  },
+      { en: 'My name is…',               th: 'ชื่อ…',                ph: 'Cheu…',                      p: true  },
+    ]
+  },
+  food: {
+    label: '🍜 Food & Spice',
+    phrases: [
+      { en: 'Delicious!',                 th: 'อร่อย',                ph: 'Aroy!',                      p: false },
+      { en: 'Very delicious!',            th: 'อร่อยมาก',             ph: 'Aroy maak!',                 p: false },
+      { en: 'Not spicy',                  th: 'ไม่เผ็ด',              ph: 'Mai phet',                   p: true  },
+      { en: 'A little spicy',             th: 'เผ็ดนิดหน่อย',         ph: 'Phet nit noi',               p: true  },
+      { en: 'Very spicy',                 th: 'เผ็ดมาก',              ph: 'Phet maak',                  p: true  },
+      { en: "I'm vegetarian",             th: 'กินเจ',                ph: 'Kin jeh',                    p: true  },
+      { en: 'No meat please',             th: 'ไม่ใส่เนื้อ',          ph: 'Mai sai nuea',               p: true  },
+      { en: 'No MSG please',              th: 'ไม่ใส่ผงชูรส',         ph: 'Mai sai phong chu rot',      p: true  },
+      { en: "I'm allergic to nuts",       th: 'แพ้ถั่ว',              ph: 'Phae thua',                  p: true  },
+      { en: 'Water please',               th: 'ขอน้ำ',                ph: 'Kho nam',                    p: true  },
+      { en: 'Beer',                       th: 'เบียร์',               ph: 'Bia',                        p: false },
+      { en: 'No ice',                     th: 'ไม่เอาน้ำแข็ง',        ph: 'Mai ao nam khaeng',          p: true  },
+      { en: 'Bill please',                th: 'เก็บเงินด้วย',         ph: 'Gep ngern duay',             p: true  },
+      { en: 'One more please',            th: 'ขออีกหนึ่ง',           ph: 'Kho eek nueng',              p: true  },
+      { en: 'Pad Thai',                   th: 'ผัดไทย',               ph: 'Phat Thai',                  p: false },
+      { en: 'Green curry',                th: 'แกงเขียวหวาน',         ph: 'Gaeng khiao wan',            p: false },
+      { en: 'Mango sticky rice',          th: 'ข้าวเหนียวมะม่วง',     ph: 'Khao niao ma-muang',         p: false },
+      { en: 'Fried rice',                 th: 'ข้าวผัด',              ph: 'Khao phat',                  p: false },
+      { en: 'Tom Yum soup',               th: 'ต้มยำ',                ph: 'Tom yam',                    p: false },
+      { en: 'Som Tum (papaya salad)',      th: 'ส้มตำ',                ph: 'Som tam',                    p: false },
+    ]
+  },
+  transport: {
+    label: '🛺 Getting Around',
+    phrases: [
+      { en: 'Where is…?',                th: '…อยู่ที่ไหน',           ph: '…yoo tee nai',               p: true  },
+      { en: 'Take me here (show screen)', th: 'พาไปที่นี่',           ph: 'Pha pai tee nee',            p: true  },
+      { en: 'Stop here please',           th: 'หยุดที่นี่',           ph: 'Yut tee nee',                p: true  },
+      { en: 'How much to get there?',     th: 'ไปเท่าไหร่',           ph: 'Pai tao rai',                p: true  },
+      { en: 'Use the meter please',       th: 'ใช้มิเตอร์',           ph: 'Chai mi-toe',                p: true  },
+      { en: 'Turn left',                  th: 'เลี้ยวซ้าย',           ph: 'Liaw sai',                   p: false },
+      { en: 'Turn right',                 th: 'เลี้ยวขวา',            ph: 'Liaw kwa',                   p: false },
+      { en: 'Go straight',                th: 'ตรงไป',                ph: 'Trong pai',                  p: false },
+      { en: 'Too far',                    th: 'ไกลไป',                ph: 'Glai pai',                   p: false },
+      { en: 'Airport',                    th: 'สนามบิน',              ph: 'Sa-nam bin',                 p: false },
+      { en: 'Train station',              th: 'สถานีรถไฟ',            ph: 'Sa-tha-ni rot fai',          p: false },
+      { en: 'Hotel',                      th: 'โรงแรม',               ph: 'Rong raem',                  p: false },
+      { en: 'Tuk-tuk',                    th: 'ตุ๊กตุ๊ก',             ph: 'Tuk-tuk',                    p: false },
+      { en: 'Motorbike taxi',             th: 'มอเตอร์ไซค์รับจ้าง',   ph: 'Mo-toe-sai rap jang',        p: false },
+      { en: 'I am lost',                  th: 'ฉันหลงทาง',            ph: 'Chan long thang',            p: true  },
+      { en: 'Beach',                      th: 'ชายหาด',               ph: 'Chai hat',                   p: false },
+      { en: 'Temple',                     th: 'วัด',                  ph: 'Wat',                        p: false },
+      { en: 'Market',                     th: 'ตลาด',                 ph: 'Ta-lat',                     p: false },
+    ]
+  },
+  shopping: {
+    label: '🛍 Shopping',
+    phrases: [
+      { en: 'How much?',                  th: 'เท่าไหร่',             ph: 'Tao rai',                    p: true  },
+      { en: 'Too expensive',              th: 'แพงไป',                ph: 'Phaeng pai',                 p: false },
+      { en: 'Can you discount?',          th: 'ลดได้ไหม',             ph: 'Lot dai mai',                p: true  },
+      { en: 'Cheaper please',             th: 'ถูกกว่านี้ได้ไหม',     ph: 'Thuk kwa nee dai mai',       p: true  },
+      { en: "I'll take it",               th: 'เอาอันนี้',            ph: 'Ao an nee',                  p: true  },
+      { en: "I'm just looking",           th: 'ดูเฉยๆ',               ph: 'Du choei choei',             p: true  },
+      { en: 'Do you have…?',             th: 'มี…ไหม',               ph: 'Mee…mai',                    p: true  },
+      { en: 'What is this?',              th: 'นี่คืออะไร',           ph: 'Nee kue arai',               p: true  },
+      { en: 'Do you have a bag?',         th: 'มีถุงไหม',             ph: 'Mee thung mai',              p: true  },
+      { en: 'Can I try it on?',           th: 'ลองได้ไหม',            ph: 'Long dai mai',               p: true  },
+      { en: 'Cash',                       th: 'เงินสด',               ph: 'Ngern sot',                  p: false },
+      { en: 'Card / QR payment',          th: 'จ่ายบัตร / สแกน',      ph: 'Jai bat / sa-gaen',          p: false },
+      { en: 'Do you have a receipt?',     th: 'มีใบเสร็จไหม',         ph: 'Mee bai-set mai',            p: true  },
+    ]
+  },
+  emergency: {
+    label: '🆘 Emergencies',
+    phrases: [
+      { en: 'Help!',                      th: 'ช่วยด้วย!',            ph: 'Chuay duay!',                p: false },
+      { en: 'Call the police!',           th: 'เรียกตำรวจ!',          ph: 'Riak tamruat!',              p: false },
+      { en: 'Call an ambulance!',         th: 'เรียกรถพยาบาล!',       ph: 'Riak rot phayaban!',         p: false },
+      { en: "I'm sick",                   th: 'ฉันไม่สบาย',           ph: 'Chan mai sabai',             p: true  },
+      { en: 'I need a doctor',            th: 'ต้องการหมอ',           ph: 'Tong kan mo',                p: true  },
+      { en: 'Hospital',                   th: 'โรงพยาบาล',            ph: 'Rong phayaban',              p: false },
+      { en: 'Police station',             th: 'สถานีตำรวจ',           ph: 'Sa-tha-ni tamruat',          p: false },
+      { en: "I've been robbed",           th: 'ถูกขโมย',              ph: 'Thuk kha-moi',               p: true  },
+      { en: 'I need medicine',            th: 'ต้องการยา',            ph: 'Tong kan ya',                p: true  },
+      { en: 'I have a food allergy',      th: 'แพ้อาหาร',             ph: 'Phae ahan',                  p: true  },
+      { en: 'I am lost',                  th: 'ฉันหลงทาง',            ph: 'Chan long thang',            p: true  },
+      { en: 'Tourist Police ☎ 1155',     th: 'ตำรวจท่องเที่ยว ☎ 1155', ph: 'Tamruat thong thiao: 1155', p: false },
+      { en: 'Emergency ☎ 191',           th: 'เหตุฉุกเฉิน ☎ 191',    ph: 'Het chuk choen: 191',        p: false },
+    ]
+  },
+  numbers: {
+    label: '🔢 Numbers',
+    phrases: [
+      { en: '0',   th: 'ศูนย์',     ph: 'Soon',      p: false },
+      { en: '1',   th: 'หนึ่ง',     ph: 'Nueng',     p: false },
+      { en: '2',   th: 'สอง',       ph: 'Song',      p: false },
+      { en: '3',   th: 'สาม',       ph: 'Sam',       p: false },
+      { en: '4',   th: 'สี่',       ph: 'See',       p: false },
+      { en: '5',   th: 'ห้า',       ph: 'Ha',        p: false },
+      { en: '6',   th: 'หก',        ph: 'Hok',       p: false },
+      { en: '7',   th: 'เจ็ด',      ph: 'Jet',       p: false },
+      { en: '8',   th: 'แปด',       ph: 'Paet',      p: false },
+      { en: '9',   th: 'เก้า',      ph: 'Kao',       p: false },
+      { en: '10',  th: 'สิบ',       ph: 'Sip',       p: false },
+      { en: '20',  th: 'ยี่สิบ',    ph: 'Yee-sip',   p: false },
+      { en: '30',  th: 'สามสิบ',    ph: 'Sam-sip',   p: false },
+      { en: '50',  th: 'ห้าสิบ',    ph: 'Ha-sip',    p: false },
+      { en: '100', th: 'หนึ่งร้อย', ph: 'Nueng roi', p: false },
+      { en: '200', th: 'สองร้อย',   ph: 'Song roi',  p: false },
+      { en: '500', th: 'ห้าร้อย',   ph: 'Ha roi',    p: false },
+      { en: '1000',th: 'หนึ่งพัน',  ph: 'Nueng phan',p: false },
+      { en: 'Baht (฿)', th: 'บาท',  ph: 'Baht',      p: false },
+      { en: 'How much? (prices)', th: 'เท่าไหร่', ph: 'Tao rai', p: true },
+    ]
+  }
+};
+
+const PM = { th: 'ครับ', ph: 'krap' };
+const PF = { th: 'ค่ะ',  ph: 'ka'   };
+
+// ── State ──────────────────────────────────────────────────────────────────
+const S = {
+  p:       'm',
+  tab:     'basics',
+  q:       '',
+  starred: new Set(JSON.parse(localStorage.getItem('ltb_v1') || '[]')),
+};
+
+// ── Particle ───────────────────────────────────────────────────────────────
+function setP(g) {
+  S.p = g;
+  document.querySelectorAll('.p-btn').forEach(b => b.classList.toggle('on', b.dataset.p === g));
+  renderPhrases();
+}
+
+function withP(phrase) {
+  if (!phrase.p) return { th: phrase.th, ph: phrase.ph };
+  const P = S.p === 'f' ? PF : PM;
+  return { th: phrase.th + P.th, ph: phrase.ph + ' ' + P.ph };
+}
+
+// ── Layout: offset main below fixed header + tabs ──────────────────────────
+function reflow() {
+  const hh = document.getElementById('hdr').offsetHeight;
+  const tabs = document.getElementById('tabs');
+  tabs.style.top = hh + 'px';
+  document.getElementById('main').style.paddingTop = (hh + tabs.offsetHeight + 12) + 'px';
+}
+
+// ── Tabs ───────────────────────────────────────────────────────────────────
+function renderTabs() {
+  const defs = [
+    { id: 'starred', label: '⭐ Saved' },
+    ...Object.entries(DATA).map(([id, c]) => ({ id, label: c.label }))
+  ];
+  document.getElementById('tabs').innerHTML = defs.map(t => {
+    const badge = t.id === 'starred' && S.starred.size > 0
+      ? `<span class="badge">${S.starred.size}</span>` : '';
+    return `<button class="tab${S.tab === t.id ? ' on' : ''}" onclick="setTab('${t.id}')">${t.label}${badge}</button>`;
+  }).join('');
+  reflow();
+}
+
+function setTab(id) {
+  S.tab = id;
+  S.q   = '';
+  document.getElementById('q').value = '';
+  renderTabs();
+  renderPhrases();
+  window.scrollTo(0, 0);
+}
+
+// ── Star ───────────────────────────────────────────────────────────────────
+function pid(cat, i) { return `${cat}:${i}`; }
+
+function toggleStar(id) {
+  S.starred.has(id) ? S.starred.delete(id) : S.starred.add(id);
+  localStorage.setItem('ltb_v1', JSON.stringify([...S.starred]));
+  renderTabs();
+  renderPhrases();
+}
+
+// ── Copy ───────────────────────────────────────────────────────────────────
+function doCopy(btn) {
+  const text = btn.closest('.card').dataset.th;
+  const ok = () => {
+    btn.classList.add('ok'); btn.textContent = '✓';
+    toast('Copied!');
+    setTimeout(() => { btn.classList.remove('ok'); btn.textContent = '📋'; }, 1500);
+  };
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(ok).catch(() => fallback(text, ok));
+  } else {
+    fallback(text, ok);
+  }
+}
+
+function fallback(text, cb) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0';
+  document.body.appendChild(ta);
+  ta.focus(); ta.select();
+  try { document.execCommand('copy'); } catch(e) {}
+  document.body.removeChild(ta);
+  cb();
+}
+
+// ── Toast ──────────────────────────────────────────────────────────────────
+let toastT;
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastT);
+  toastT = setTimeout(() => el.classList.remove('show'), 1800);
+}
+
+// ── Search ─────────────────────────────────────────────────────────────────
+function onQ(val) {
+  S.q = val.toLowerCase().trim();
+  renderPhrases();
+}
+
+// ── Build card HTML ────────────────────────────────────────────────────────
+function card(catId, phrase, i) {
+  const id   = pid(catId, i);
+  const strd = S.starred.has(id);
+  const ap   = withP(phrase);
+  const thEsc = ap.th.replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+  return `<div class="card${strd?' strd':''}" data-th="${thEsc}">
+    <div class="card-body">
+      <div class="c-en">${phrase.en}</div>
+      <div class="c-th" lang="th">${ap.th}</div>
+      <div class="c-ph">${ap.ph}</div>
+    </div>
+    <div class="card-btns">
+      <button class="btn cp" onclick="doCopy(this)" aria-label="Copy">📋</button>
+      <button class="btn st${strd?' on':''}" onclick="toggleStar('${id}')" aria-label="Star">${strd?'⭐':'☆'}</button>
+    </div>
+  </div>`;
+}
+
+// ── Render phrases ─────────────────────────────────────────────────────────
+function renderPhrases() {
+  const el = document.getElementById('main');
+  const q  = S.q;
+
+  // ── Saved tab ──
+  if (S.tab === 'starred') {
+    const parts = [];
+    Object.entries(DATA).forEach(([cid, cat]) => {
+      cat.phrases.forEach((ph, i) => {
+        if (S.starred.has(pid(cid, i))) parts.push(card(cid, ph, i));
+      });
+    });
+    el.innerHTML = parts.length
+      ? parts.join('')
+      : '<div class="empty"><span class="ico">⭐</span>Tap ☆ on any phrase to save it here</div>';
+    return;
+  }
+
+  // ── Search ──
+  if (q) {
+    const parts = [];
+    Object.entries(DATA).forEach(([cid, cat]) => {
+      const hits = cat.phrases
+        .map((ph, i) => ({ ph, i }))
+        .filter(({ ph }) =>
+          ph.en.toLowerCase().includes(q) ||
+          ph.ph.toLowerCase().includes(q) ||
+          ph.th.includes(q)
+        );
+      if (hits.length) {
+        parts.push(`<div class="cat-hdr">${cat.label}</div>`);
+        hits.forEach(({ ph, i }) => parts.push(card(cid, ph, i)));
+      }
+    });
+    el.innerHTML = parts.length
+      ? parts.join('')
+      : `<div class="empty"><span class="ico">🔍</span>Nothing found for "${S.q}"</div>`;
+    return;
+  }
+
+  // ── Normal tab ──
+  const cat = DATA[S.tab];
+  if (!cat) { el.innerHTML = ''; return; }
+  el.innerHTML = cat.phrases.map((ph, i) => card(S.tab, ph, i)).join('');
+}
+
+// ── Init ───────────────────────────────────────────────────────────────────
+renderTabs();
+renderPhrases();
+window.addEventListener('resize', reflow);
+</script>
+</body>
+</html>
