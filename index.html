@@ -123,6 +123,12 @@
     }
     .card.strd { border-left: 3px solid var(--gold); padding-left: 10px; }
 
+    .rule-banner {
+      background: #1a2a1a; border: 1px solid #2e4d2e;
+      border-radius: 12px; padding: 12px 14px;
+      font-size: 0.82rem; color: #7ecf7e; line-height: 1.5;
+    }
+
     .card-body { flex: 1; min-width: 0; }
     .c-en {
       font-size: 0.68rem; color: var(--muted);
@@ -300,6 +306,7 @@ const DATA = {
   numbers: {
     label: '🔢 Numbers',
     phrases: [
+      // ── Basics 0-10 ──
       { en: '0',   th: 'ศูนย์',     ph: 'Soon',      p: false },
       { en: '1',   th: 'หนึ่ง',     ph: 'Nueng',     p: false },
       { en: '2',   th: 'สอง',       ph: 'Song',      p: false },
@@ -311,14 +318,45 @@ const DATA = {
       { en: '8',   th: 'แปด',       ph: 'Paet',      p: false },
       { en: '9',   th: 'เก้า',      ph: 'Kao',       p: false },
       { en: '10',  th: 'สิบ',       ph: 'Sip',       p: false },
-      { en: '20',  th: 'ยี่สิบ',    ph: 'Yee-sip',   p: false },
-      { en: '30',  th: 'สามสิบ',    ph: 'Sam-sip',   p: false },
-      { en: '50',  th: 'ห้าสิบ',    ph: 'Ha-sip',    p: false },
-      { en: '100', th: 'หนึ่งร้อย', ph: 'Nueng roi', p: false },
-      { en: '200', th: 'สองร้อย',   ph: 'Song roi',  p: false },
-      { en: '500', th: 'ห้าร้อย',   ph: 'Ha roi',    p: false },
-      { en: '1000',th: 'หนึ่งพัน',  ph: 'Nueng phan',p: false },
-      { en: 'Baht (฿)', th: 'บาท',  ph: 'Baht',      p: false },
+
+      // ── How compound numbers work ──
+      { type: 'rule', en: '📐 <b>Tens:</b> digit + <i>sip</i> = tens<br>e.g. sam + sip = 30 (sam-sip)<br>⚠️ Exception: 20 = <i>yee-sip</i> — NEVER song-sip' },
+      { type: 'rule', en: '⚠️ <b>Trailing 1:</b> when 1 is the last digit, say <i>et</i> not <i>nueng</i><br>11 = sip-<b>et</b> &nbsp; 21 = yee-sip-<b>et</b> &nbsp; 31 = sam-sip-<b>et</b>' },
+
+      // ── Teens ──
+      { en: '11',  th: 'สิบเอ็ด',      ph: 'Sip-et',         p: false },
+      { en: '12',  th: 'สิบสอง',        ph: 'Sip-song',       p: false },
+      { en: '13',  th: 'สิบสาม',        ph: 'Sip-sam',        p: false },
+      { en: '15',  th: 'สิบห้า',        ph: 'Sip-ha',         p: false },
+      { en: '19',  th: 'สิบเก้า',       ph: 'Sip-kao',        p: false },
+
+      // ── Tens ──
+      { en: '20',  th: 'ยี่สิบ',        ph: 'Yee-sip',        p: false },
+      { en: '21',  th: 'ยี่สิบเอ็ด',    ph: 'Yee-sip-et',     p: false },
+      { en: '27',  th: 'ยี่สิบเจ็ด',    ph: 'Yee-sip-jet',    p: false },
+      { en: '30',  th: 'สามสิบ',        ph: 'Sam-sip',        p: false },
+      { en: '32',  th: 'สามสิบสอง',     ph: 'Sam-sip-song',   p: false },
+      { en: '40',  th: 'สี่สิบ',        ph: 'See-sip',        p: false },
+      { en: '45',  th: 'สี่สิบห้า',     ph: 'See-sip-ha',     p: false },
+      { en: '50',  th: 'ห้าสิบ',        ph: 'Ha-sip',         p: false },
+      { en: '60',  th: 'หกสิบ',         ph: 'Hok-sip',        p: false },
+      { en: '70',  th: 'เจ็ดสิบ',       ph: 'Jet-sip',        p: false },
+      { en: '80',  th: 'แปดสิบ',        ph: 'Paet-sip',       p: false },
+      { en: '90',  th: 'เก้าสิบ',       ph: 'Kao-sip',        p: false },
+
+      // ── Hundreds ──
+      { type: 'rule', en: '📐 <b>Hundreds:</b> digit + <i>roi</i> = hundreds<br>e.g. sam + roi + see-sip = 340 (sam-roi-see-sip)<br>Combine: hundreds + tens + units' },
+      { en: '100', th: 'หนึ่งร้อย',      ph: 'Nueng-roi',      p: false },
+      { en: '200', th: 'สองร้อย',        ph: 'Song-roi',       p: false },
+      { en: '340', th: 'สามร้อยสี่สิบ',  ph: 'Sam-roi-see-sip',p: false },
+      { en: '500', th: 'ห้าร้อย',        ph: 'Ha-roi',         p: false },
+      { en: '542', th: 'ห้าร้อยสี่สิบสอง', ph: 'Ha-roi-see-sip-song', p: false },
+
+      // ── Thousands ──
+      { en: '1000',th: 'หนึ่งพัน',       ph: 'Nueng-phan',     p: false },
+
+      // ── Useful ──
+      { en: 'Baht (฿)',           th: 'บาท',    ph: 'Baht',    p: false },
       { en: 'How much? (prices)', th: 'เท่าไหร่', ph: 'Tao rai', p: true },
     ]
   }
@@ -433,6 +471,9 @@ function onQ(val) {
 
 // ── Build card HTML ────────────────────────────────────────────────────────
 function card(catId, phrase, i) {
+  if (phrase.type === 'rule') {
+    return `<div class="rule-banner">${phrase.en}</div>`;
+  }
   const id   = pid(catId, i);
   const strd = S.starred.has(id);
   const ap   = withP(phrase);
