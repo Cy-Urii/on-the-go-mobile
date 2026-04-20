@@ -351,6 +351,77 @@ const DATA = {
       { en: 'Emergency ☎ 191',           th: 'เหตุฉุกเฉิน ☎ 191',    ph: 'Het chuk choen: 191',        p: false },
     ]
   },
+  time: {
+    label: '🕐 Time',
+    phrases: [
+      // ── Key questions ──
+      { en: 'What time is it?',          th: 'กี่โมงแล้ว',            ph: 'Kee mong laew',            p: true  },
+      { en: 'What time does it open?',   th: 'เปิดกี่โมง',            ph: 'Poet kee mong',            p: true  },
+      { en: 'What time does it close?',  th: 'ปิดกี่โมง',             ph: 'Pit kee mong',             p: true  },
+      { en: 'At what time?',             th: 'กี่โมง',                ph: 'Kee mong',                 p: true  },
+
+      // ── How Thai time works ──
+      { type: 'rule', en: '📐 <b>Thai time uses 5 period-words, not am/pm</b><br>The day is split into chunks — each chunk has its own word.<br>You say the <i>period word</i> + the <i>hour number</i> (or number first, then word).' },
+      { type: 'rule', en: '🌙 <b>Midnight–5am → ตี (tee) + number</b><br>tee nueng = 1am &nbsp; tee song = 2am &nbsp; tee sam = 3am<br>tee see = 4am &nbsp; tee ha = 5am' },
+      { type: 'rule', en: '🌅 <b>6am–11am → number + โมงเช้า (mong chao)</b><br>hok mong chao = 6am &nbsp; jet mong chao = 7am<br>paet mong chao = 8am &nbsp; kao mong chao = 9am<br>sip mong chao = 10am &nbsp; sip-et mong chao = 11am' },
+      { type: 'rule', en: '☀️ <b>12pm (noon) → เที่ยง (thiang)</b><br>Just say "thiang" — no number needed' },
+      { type: 'rule', en: '🌤 <b>1pm–6pm → บ่าย (bai) + number + โมง (mong)</b><br>bai mong = 1pm &nbsp; bai song mong = 2pm<br>bai sam mong = 3pm &nbsp; bai see mong = 4pm<br>bai ha mong = 5pm &nbsp; hok mong yen = 6pm' },
+      { type: 'rule', en: '🌆 <b>7pm–11pm → number + ทุ่ม (thum)</b><br>Count from 1 again! 7pm = 1 thum, 8pm = 2 thum…<br>nueng thum = 7pm &nbsp; song thum = 8pm<br>sam thum = 9pm &nbsp; see thum = 10pm &nbsp; ha thum = 11pm' },
+      { type: 'rule', en: '🕛 <b>Midnight → เที่ยงคืน (thiang khuen)</b><br>Half past = add ครึ่ง (khrueng) at the end<br>Minutes = add the number + นาที (na-tee) at the end' },
+
+      // ── Night / early morning (tee) ──
+      { en: '1am',   th: 'ตีหนึ่ง',             ph: 'Tee nueng',             p: false },
+      { en: '2am',   th: 'ตีสอง',               ph: 'Tee song',              p: false },
+      { en: '3am',   th: 'ตีสาม',               ph: 'Tee sam',               p: false },
+      { en: '4am',   th: 'ตีสี่',               ph: 'Tee see',               p: false },
+      { en: '5am',   th: 'ตีห้า',               ph: 'Tee ha',                p: false },
+
+      // ── Morning (mong chao) ──
+      { en: '6am',   th: 'หกโมงเช้า',           ph: 'Hok mong chao',         p: false },
+      { en: '7am',   th: 'เจ็ดโมงเช้า',          ph: 'Jet mong chao',         p: false },
+      { en: '7:30am',th: 'เจ็ดโมงครึ่ง',         ph: 'Jet mong khrueng',      p: false },
+      { en: '8am',   th: 'แปดโมงเช้า',           ph: 'Paet mong chao',        p: false },
+      { en: '9am',   th: 'เก้าโมงเช้า',           ph: 'Kao mong chao',         p: false },
+      { en: '9:15am',th: 'เก้าโมงสิบห้านาที',    ph: 'Kao mong sip-ha na-tee',p: false },
+      { en: '10am',  th: 'สิบโมงเช้า',           ph: 'Sip mong chao',         p: false },
+      { en: '11am',  th: 'สิบเอ็ดโมงเช้า',       ph: 'Sip-et mong chao',      p: false },
+
+      // ── Midday ──
+      { en: '12pm (noon)',   th: 'เที่ยง',        ph: 'Thiang',                p: false },
+      { en: '12:30pm',       th: 'เที่ยงครึ่ง',   ph: 'Thiang khrueng',        p: false },
+
+      // ── Afternoon (bai) ──
+      { en: '1pm',   th: 'บ่ายโมง',              ph: 'Bai mong',              p: false },
+      { en: '2pm',   th: 'บ่ายสองโมง',           ph: 'Bai song mong',         p: false },
+      { en: '2:30pm',th: 'บ่ายสองโมงครึ่ง',      ph: 'Bai song mong khrueng', p: false },
+      { en: '3pm',   th: 'บ่ายสามโมง',           ph: 'Bai sam mong',          p: false },
+      { en: '4pm',   th: 'บ่ายสี่โมง',           ph: 'Bai see mong',          p: false },
+      { en: '5pm',   th: 'บ่ายห้าโมง',           ph: 'Bai ha mong',           p: false },
+      { en: '6pm',   th: 'หกโมงเย็น',            ph: 'Hok mong yen',          p: false },
+
+      // ── Evening (thum) ──
+      { en: '7pm (1 thum)',  th: 'หนึ่งทุ่ม',     ph: 'Nueng thum',            p: false },
+      { en: '8pm (2 thum)',  th: 'สองทุ่ม',       ph: 'Song thum',             p: false },
+      { en: '9pm (3 thum)',  th: 'สามทุ่ม',       ph: 'Sam thum',              p: false },
+      { en: '10pm (4 thum)', th: 'สี่ทุ่ม',       ph: 'See thum',              p: false },
+      { en: '11pm (5 thum)', th: 'ห้าทุ่ม',       ph: 'Ha thum',               p: false },
+      { en: 'Midnight',      th: 'เที่ยงคืน',     ph: 'Thiang khuen',          p: false },
+
+      // ── Useful time words ──
+      { type: 'rule', en: '🗓 <b>Useful time words</b>' },
+      { en: 'Now',           th: 'ตอนนี้',        ph: 'Ton nee',               p: false },
+      { en: 'Today',         th: 'วันนี้',         ph: 'Wan nee',               p: false },
+      { en: 'Tomorrow',      th: 'พรุ่งนี้',       ph: 'Prung nee',             p: false },
+      { en: 'Yesterday',     th: 'เมื่อวาน',       ph: 'Muea wan',              p: false },
+      { en: 'Morning',       th: 'เช้า',           ph: 'Chao',                  p: false },
+      { en: 'Afternoon',     th: 'บ่าย',           ph: 'Bai',                   p: false },
+      { en: 'Evening',       th: 'เย็น',           ph: 'Yen',                   p: false },
+      { en: 'Night',         th: 'กลางคืน',        ph: 'Klang khuen',           p: false },
+      { en: 'Minutes',       th: 'นาที',           ph: 'Na-tee',                p: false },
+      { en: 'Hours',         th: 'ชั่วโมง',        ph: 'Chua mong',             p: false },
+      { en: 'Half past (add to time)', th: 'ครึ่ง', ph: 'Khrueng',             p: false },
+    ]
+  },
   numbers: {
     label: '🔢 Numbers',
     phrases: [
