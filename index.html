@@ -315,6 +315,62 @@ const DATA = {
       { en: 'Market',                     th: 'ตลาด',                 ph: 'Ta-lat',                     p: false },
     ]
   },
+  directions: {
+    label: '🧭 Directions',
+    phrases: [
+      // ── Asking ──
+      { en: 'Where is…? (show screen)',   th: '…อยู่ที่ไหน',           ph: '…yoo tee nai',               p: true  },
+      { en: 'How do I get to…?',          th: 'ไป…ยังไง',              ph: 'Pai…yang ngai',              p: true  },
+      { en: 'Is it far?',                 th: 'ไกลไหม',                ph: 'Klai mai',                   p: true  },
+      { en: 'How far?',                   th: 'ไกลแค่ไหน',             ph: 'Klai kae nai',               p: true  },
+      { en: 'How many minutes walking?',  th: 'เดินไปกี่นาที',          ph: 'Doen pai kee na-tee',        p: true  },
+      { en: 'Can you point on the map?',  th: 'ชี้บนแผนที่ได้ไหม',     ph: 'Chee bon paen-tee dai mai',  p: true  },
+      { en: 'I am lost',                  th: 'ฉันหลงทาง',             ph: 'Chan long thang',            p: true  },
+
+      // ── Cardinal directions ──
+      { type: 'rule', en: '🧭 <b>Cardinal directions</b><br>Useful when reading maps or asking locals which way to face' },
+      { en: 'North',      th: 'ทิศเหนือ',              ph: 'Tit nuea',                   p: false },
+      { en: 'South',      th: 'ทิศใต้',               ph: 'Tit tai',                    p: false },
+      { en: 'East',       th: 'ทิศตะวันออก',           ph: 'Tit ta-wan-ork',             p: false },
+      { en: 'West',       th: 'ทิศตะวันตก',            ph: 'Tit ta-wan-tok',             p: false },
+      { en: 'Northeast',  th: 'ทิศตะวันออกเฉียงเหนือ', ph: 'Tit ta-wan-ork chiang nuea', p: false },
+      { en: 'Northwest',  th: 'ทิศตะวันตกเฉียงเหนือ',  ph: 'Tit ta-wan-tok chiang nuea', p: false },
+      { en: 'Southeast',  th: 'ทิศตะวันออกเฉียงใต้',   ph: 'Tit ta-wan-ork chiang tai',  p: false },
+      { en: 'Southwest',  th: 'ทิศตะวันตกเฉียงใต้',    ph: 'Tit ta-wan-tok chiang tai',  p: false },
+
+      // ── Relative directions ──
+      { type: 'rule', en: '↕️ <b>Relative directions</b><br>These are what you\'ll actually use in conversation' },
+      { en: 'Left',               th: 'ซ้าย',           ph: 'Sai',                        p: false },
+      { en: 'Right',              th: 'ขวา',            ph: 'Kwa',                        p: false },
+      { en: 'Straight ahead',     th: 'ตรงไป',          ph: 'Trong pai',                  p: false },
+      { en: 'Turn left',          th: 'เลี้ยวซ้าย',     ph: 'Liaw sai',                   p: false },
+      { en: 'Turn right',         th: 'เลี้ยวขวา',      ph: 'Liaw kwa',                   p: false },
+      { en: 'U-turn',             th: 'กลับรถ',         ph: 'Klap rot',                   p: false },
+      { en: 'In front',           th: 'ข้างหน้า',       ph: 'Khang na',                   p: false },
+      { en: 'Behind / at the back', th: 'ข้างหลัง',    ph: 'Khang lang',                 p: false },
+      { en: 'Next to / beside',   th: 'ข้างๆ',          ph: 'Khang khang',                p: false },
+      { en: 'Opposite / across',  th: 'ตรงข้าม',        ph: 'Trong kham',                 p: false },
+      { en: 'On the left side',   th: 'อยู่ทางซ้าย',   ph: 'Yoo thang sai',              p: false },
+      { en: 'On the right side',  th: 'อยู่ทางขวา',    ph: 'Yoo thang kwa',              p: false },
+      { en: 'Near / close',       th: 'ใกล้',           ph: 'Glai (falling tone)',        p: false },
+      { en: 'Far',                th: 'ไกล',            ph: 'Klai (mid tone)',            p: false },
+      { en: 'Not far',            th: 'ไม่ไกล',         ph: 'Mai klai',                   p: false },
+      { en: 'About X minutes',    th: 'ประมาณ…นาที',    ph: 'Pra-man…na-tee',             p: false },
+
+      // ── Landmarks ──
+      { type: 'rule', en: '📍 <b>Landmark words</b><br>Point at these on a map or use to describe a location' },
+      { en: 'Corner',             th: 'หัวมุม',         ph: 'Hua mum',                    p: false },
+      { en: 'Traffic light',      th: 'ไฟแดง',          ph: 'Fai daeng',                  p: false },
+      { en: 'Roundabout',         th: 'วงเวียน',         ph: 'Wong wian',                  p: false },
+      { en: 'Bridge',             th: 'สะพาน',          ph: 'Sa-phan',                    p: false },
+      { en: 'Soi (side street)',  th: 'ซอย',            ph: 'Soi',                        p: false },
+      { en: 'Main road',          th: 'ถนนใหญ่',        ph: 'Tha-non yai',                p: false },
+      { en: 'Intersection',       th: 'สี่แยก',          ph: 'See yaek',                   p: false },
+      { en: 'Turn left at the traffic light', th: 'เลี้ยวซ้ายที่ไฟแดง', ph: 'Liaw sai tee fai daeng', p: false },
+      { en: 'Turn right at the corner',       th: 'เลี้ยวขวาที่หัวมุม',  ph: 'Liaw kwa tee hua mum',   p: false },
+      { en: 'Go straight, not far',           th: 'ตรงไป ไม่ไกล',        ph: 'Trong pai mai klai',     p: false },
+    ]
+  },
   shopping: {
     label: '🛍 Shopping',
     phrases: [
