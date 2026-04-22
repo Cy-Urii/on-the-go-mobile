@@ -598,7 +598,34 @@ const DATA = {
       { en: '542', th: 'ห้าร้อยสี่สิบสอง', ph: 'Ha-roi-see-sip-song', p: false },
 
       // ── Thousands ──
-      { en: '1000',th: 'หนึ่งพัน',       ph: 'Nueng-phan',     p: false },
+      { en: '1,000',   th: 'หนึ่งพัน',    ph: 'Nueng-phan',          p: false },
+      { en: '2,000',   th: 'สองพัน',      ph: 'Song-phan',           p: false },
+      { en: '5,000',   th: 'ห้าพัน',      ph: 'Ha-phan',             p: false },
+
+      // ── Ten-thousands (หมื่น muen) ──
+      { type: 'rule', en: '📐 <b>Thai has a unique word for 10,000: หมื่น (muen)</b><br>Not "ten thousand" — just muen<br>15,000 = nueng-muen + ha-phan = nueng-muen-ha-phan' },
+      { en: '10,000',  th: 'หนึ่งหมื่น',   ph: 'Nueng-muen',          p: false },
+      { en: '15,000',  th: 'หนึ่งหมื่นห้าพัน',  ph: 'Nueng-muen-ha-phan',  p: false },
+      { en: '20,000',  th: 'สองหมื่น',     ph: 'Song-muen',           p: false },
+      { en: '25,000',  th: 'สองหมื่นห้าพัน',    ph: 'Song-muen-ha-phan',   p: false },
+      { en: '30,000',  th: 'สามหมื่น',     ph: 'Sam-muen',            p: false },
+      { en: '50,000',  th: 'ห้าหมื่น',     ph: 'Ha-muen',             p: false },
+      { en: '99,000',  th: 'เก้าหมื่นเก้าพัน', ph: 'Kao-muen-kao-phan', p: false },
+
+      // ── Hundred-thousands (แสน saen) ──
+      { type: 'rule', en: '📐 <b>100,000 = แสน (saen) — another unique Thai word</b><br>250,000 = song-saen-ha-muen<br>Stack: [saen] + [muen] + [phan] + [roi] + units' },
+      { en: '100,000', th: 'หนึ่งแสน',     ph: 'Nueng-saen',          p: false },
+      { en: '150,000', th: 'หนึ่งแสนห้าหมื่น',  ph: 'Nueng-saen-ha-muen',  p: false },
+      { en: '200,000', th: 'สองแสน',       ph: 'Song-saen',           p: false },
+      { en: '250,000', th: 'สองแสนห้าหมื่น',    ph: 'Song-saen-ha-muen',   p: false },
+      { en: '500,000', th: 'ห้าแสน',       ph: 'Ha-saen',             p: false },
+      { en: '999,000', th: 'เก้าแสนเก้าหมื่นเก้าพัน', ph: 'Kao-saen-kao-muen-kao-phan', p: false },
+
+      // ── Millions (ล้าน lan) ──
+      { type: 'rule', en: '📐 <b>1,000,000 = ล้าน (lan)</b><br>After lan, the cycle repeats: lan + saen + muen + phan…' },
+      { en: '1,000,000',  th: 'หนึ่งล้าน',  ph: 'Nueng-lan',           p: false },
+      { en: '5,000,000',  th: 'ห้าล้าน',    ph: 'Ha-lan',              p: false },
+      { en: '10,000,000', th: 'สิบล้าน',    ph: 'Sip-lan',             p: false },
 
       // ── Useful ──
       { en: 'Baht (฿)',           th: 'บาท',    ph: 'Baht',    p: false },
